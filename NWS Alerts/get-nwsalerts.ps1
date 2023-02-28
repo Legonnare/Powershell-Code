@@ -24,7 +24,7 @@ do{
   $NWSalerts = @()
   $NWSalerts = Invoke-RestMethod -Uri $AlertURI
 
-  If (($NWSalerts.features.count -gt 0) -and ($NWSalerts.features.id -ne $id)){
+  If ( ($NWSalerts.features.count -gt 0) -and ("$($NWSalerts.features.id)" -notlike "$($id)") ){
     $AlertArray = @()
     Foreach ($Alert in $NWSalerts.features){
       If ($Alert.properties.areaDesc -like "*$($County)*"){
@@ -54,5 +54,5 @@ do{
     }
 
   }
-  Start-Sleep -Seconds 600
+  Start-Sleep -Seconds 5
 } Until ($NWSalerts.count -eq 0)
