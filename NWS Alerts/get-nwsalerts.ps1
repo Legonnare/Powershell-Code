@@ -3,9 +3,8 @@ param (
   $State = "MN",
   $County = "Hennepin"
 )
-Add-Type -AssemblyName PresentationFramework
 
-$ZoneIDs = Import-CSV -Path 'C:\Users\legon\OneDrive\Documents\GitHub\Powershell-Code\NWS Alerts\all-geocodes-v2019.csv'
+$ZoneIDs = Import-CSV -Path 'NWS Alerts/all-geocodes-v2019.csv'
 
 $CountyID = $ZoneIDs | Where-Object -Property Name -Like "$($County) County"
 
@@ -38,7 +37,15 @@ do{
     }
     $id = $NWSalerts.features.id
     $Message = $AlertArray | Out-String
-    [System.Windows.MessageBox]::Show("$Message `n `n Acknowledge?",'+++++  NWS ALERT +++++','OK','Warning')
+    if ($IsWindows){
+      Add-Type -AssemblyName PresentationFramework
+      [System.Windows.MessageBox]::Show("$Message `n `n Acknowledge?",'+++++  NWS ALERT +++++','OK','Warning')
+    }
+    elseif($IsMacOS){
+      $appleScript = "display alert `"+++++  NWS ALERT +++++`" message `"$Message`""
+      $appleScript | osascript
+    }
+
   }
   Start-Sleep -Seconds 600
 } Until ($NWSalerts.count -eq 0)
