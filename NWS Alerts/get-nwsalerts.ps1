@@ -8,7 +8,7 @@ if($IsMacOS){
   $CSVPath = "/Users/g561109/Library/CloudStorage/OneDrive-GeneralMills/Documents/GitHub/Powershell-Code-1/NWS Alerts/all-geocodes-v2019.csv"
 }
 elseif($IsWindows){
-  $CSVPath = "C:\Users\legon\OneDrive\Documents\GitHub\Powershell-Code\NWS Alerts\all-geocodes-v2019.csv"
+  $CSVPath = "C:\Users\legon\OneDrive\Documents\GitHub\Powershell-Code-1\NWS Alerts\all-geocodes-v2019.csv"
 }
 
 $ZoneIDs = Import-CSV -Path $CSVPath
